@@ -25,4 +25,11 @@ RSpec.describe Card do
   it 'has a suit' do
     expect(card.suit).to eq('Spades')
   end
+
+  it 'has a custom error message' do
+    # card.suit = 'Nonsense'
+    card.suit = 'Spades'
+    comparison = 'Spades'
+    expect(card.suit).to eq(comparison), "I expected #{comparison} but I got #{card.suit} instead"
+  end
 end
