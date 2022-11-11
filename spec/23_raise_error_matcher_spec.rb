@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'raise_error matcher' do
   def some_method
     x
@@ -8,8 +10,9 @@ RSpec.describe 'raise_error matcher' do
     expect { 10 / 0 }.to raise_error(ZeroDivisionError)
   end
 
+  let(:custom_error) { Class.new(StandardError) }
+
   it 'can check for user-created error' do
-    class CustomError < StandardError; end
-    expect { raise CustomError }.to raise_error(CustomError)
+    expect { raise custom_error }.to raise_error(custom_error)
   end
 end
