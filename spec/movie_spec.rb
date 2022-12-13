@@ -36,6 +36,7 @@ class Movie
     actor.act
     actor.fall_off_ladder
     actor.light_on_fire
+    actor.act
   end
 end
 
@@ -55,6 +56,16 @@ RSpec.describe Movie do
       expect(stuntman).to receive(:act)
       expect(stuntman).to receive(:fall_off_ladder)
       expect(stuntman).to receive(:light_on_fire)
+
+      subject.start_shooting
+    end
+
+    it 'expects an actor to do duplicated actions' do
+      expect(stuntman).to receive(:ready?).at_most(1).times
+      # expect(stuntman).to receive(:act).twice
+      expect(stuntman).to receive(:act).at_least(2).times
+      expect(stuntman).to receive(:fall_off_ladder).exactly(1).times
+      expect(stuntman).to receive(:light_on_fire).once
 
       subject.start_shooting
     end
